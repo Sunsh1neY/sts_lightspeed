@@ -845,7 +845,8 @@ void BattleContext::playCardQueueItem(CardQueueItem playItem) {
     }
 
 //    bool canPlayCard = false; // not really sure what this is used for
-    const bool canUseCard = item.purgeOnUse || (item.triggerOnUse && c.canUse(*this, item.target, item.autoplay) && (!c.requiresTarget() || monsters.arr[item.target].isTargetable()));
+    const bool chokerAllowsPlay = !player.hasRelic<R::VELVET_CHOKER>() || player.cardsPlayedThisTurn < 6;
+    const bool canUseCard = item.purgeOnUse || (item.triggerOnUse && chokerAllowsPlay && c.canUse(*this, item.target, item.autoplay) && (!c.requiresTarget() || monsters.arr[item.target].isTargetable()));
     if (canUseCard) { // not sure if this is correct,
 //        canPlayCard = true; // what is this for......
 
