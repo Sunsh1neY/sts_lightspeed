@@ -413,7 +413,7 @@ void BattleContext::initRelics(const GameContext &gc) {
                 break;
 
             case R::RED_MASK:
-                addToBot( Actions::DebuffAllEnemy<MS::WEAK>(1) );
+                addToBot( Actions::DebuffAllEnemy<MS::WEAK>(1, false) );
                 break;
 
             case R::RING_OF_THE_SNAKE:
