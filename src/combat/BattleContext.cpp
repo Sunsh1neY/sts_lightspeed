@@ -294,7 +294,9 @@ void BattleContext::initRelics(const GameContext &gc) {
                 if (r.data > 0) {
                     for (int i = 0; i < monsters.monsterCount; ++i) {
                         Monster &m = monsters.arr[i];
-                        m.curHp = 1;
+                        if (m.idx != -1) {
+                            m.curHp = 1;
+                        }
                     }
                 }
                 break;
