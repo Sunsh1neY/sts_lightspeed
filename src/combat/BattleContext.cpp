@@ -519,6 +519,12 @@ void BattleContext::exitBattle(GameContext &g) const {
 }
 
 void BattleContext::updateRelicsOnExit(GameContext &g) const {
+    // Meat on the Bone triggers before the other victory-relic healing.
+    if (outcome == Outcome::PLAYER_VICTORY && g.relics.has(RelicId::MEAT_ON_THE_BONE) &&
+            g.curHp > 0 && g.curHp <= g.maxHp / 2) {
+        g.playerHeal(12);
+    }
+
     for (auto &r : g.relics.relics) {
         switch (r.id) {
             case RelicId::HAPPY_FLOWER:
@@ -574,12 +580,6 @@ void BattleContext::updateRelicsOnExit(GameContext &g) const {
 
             case RelicId::BLACK_BLOOD:
                 if (outcome == Outcome::PLAYER_VICTORY) {
-                    g.playerHeal(12);
-                }
-                break;
-
-            case RelicId::MEAT_ON_THE_BONE:
-                if (outcome == Outcome::PLAYER_VICTORY && g.curHp <= g.maxHp / 2) {
                     g.playerHeal(12);
                 }
                 break;
