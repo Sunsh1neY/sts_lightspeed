@@ -816,6 +816,10 @@ void BattleContext::executeActions() {
 
             if (cards.cardsInHand == 0) {
                 drawCards(1);
+                // A shuffle or on-draw effect must finish before player control.
+                if (!actionQueue.isEmpty()) {
+                    continue;
+                }
             }
         }
 
