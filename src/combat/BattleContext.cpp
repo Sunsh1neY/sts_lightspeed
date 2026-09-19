@@ -2241,6 +2241,10 @@ void BattleContext::drinkPotion(int idx, int target) {
     const Potion p = potions[idx];
     discardPotion(idx);
 
+    if (player.hasRelic<R::TOY_ORNITHOPTER>()) {
+        addToBot(Actions::HealPlayer(5));
+    }
+
     // todo - dont need to add to bot because always will have nothing in actionQueue?
 
     switch (p) {
