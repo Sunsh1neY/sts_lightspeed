@@ -259,6 +259,11 @@ void Player::attacked(BattleContext &bc, int enemyIdx, int calculatedDamage) {
 }
 
 void Player::loseHp(BattleContext &bc, int amount, bool selfDamage) {
+    if (amount > 0 && hasStatus<PS::BUFFER>()) {
+        decrementStatus<PS::BUFFER>();
+        return;
+    }
+
     if (hasStatus<PS::INTANGIBLE>()) {
         amount = 1;
     }
